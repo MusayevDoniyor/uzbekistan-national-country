@@ -9,7 +9,7 @@ export default function AiHelperSection() {
   const [messages, setMessages] = useState<{role: 'user' | 'model', text: string}[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const recognitionRef = useRef<any>(null);
 
@@ -31,6 +31,9 @@ export default function AiHelperSection() {
       recognition.onerror = (event: any) => {
         console.error("Speech recognition error", event.error);
         setIsListening(false);
+        if (event.error === 'not-allowed') {
+           alert("Пожалуйста, разрешите доступ к микрофону в браузере.");
+        }
       };
 
       recognition.onend = () => {
@@ -42,6 +45,10 @@ export default function AiHelperSection() {
   }, []);
 
   const toggleListening = () => {
+    if (!recognitionRef.current) {
+        alert("Голосовой ввод не поддерживается в вашем браузере. Пожалуйста, используйте текстовый ввод.");
+        return;
+    }
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
@@ -99,8 +106,10 @@ export default function AiHelperSection() {
   };
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
 
   return (
     <section className="snap-section flex flex-col md:flex-row bg-[#F8F5F2] relative">
@@ -123,7 +132,7 @@ export default function AiHelperSection() {
             AI помощник <br/> <span className="font-serif font-normal italic text-[#1A1A1A]/60">для жюри и зрителей</span>
           </h2>
 
-          <div className="flex-1 bg-white border border-[#1A1A1A] shadow-[10px_10px_0px_rgba(0,0,0,0.05)] 2xl:shadow-[20px_20px_0px_rgba(0,0,0,0.05)] p-4 md:p-6 2xl:p-10 mb-6 overflow-y-auto flex flex-col gap-4 2xl:gap-8">
+          <div ref={scrollContainerRef} className="flex-1 bg-white border border-[#1A1A1A] shadow-[10px_10px_0px_rgba(0,0,0,0.05)] 2xl:shadow-[20px_20px_0px_rgba(0,0,0,0.05)] p-4 md:p-6 2xl:p-10 mb-6 overflow-y-auto flex flex-col gap-4 2xl:gap-8">
             {messages.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center text-center text-[#1A1A1A]/40 font-serif italic max-w-lg 2xl:max-w-3xl mx-auto">
                 <Bot className="mb-4 text-[#1A1A1A]/20 w-[48px] h-[48px] 2xl:w-[80px] 2xl:h-[80px]" strokeWidth={1} />
@@ -158,7 +167,6 @@ export default function AiHelperSection() {
                 </div>
               </div>
             )}
-            <div ref={messagesEndRef} />
           </div>
 
           <form onSubmit={handleSubmit} className="flex gap-2 2xl:gap-4 relative">

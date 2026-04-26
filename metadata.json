@@ -1,6 +1,8 @@
 {
   "name": "Uzbekistan - A Multinational Country",
   "description": "An interactive storytelling website showcasing the diversity and multinationalism of Uzbekistan.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": [
+    "microphone"
+  ],
   "majorCapabilities": []
 }
