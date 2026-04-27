@@ -10,26 +10,18 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  overflow: hidden;
   font-family: var(--font-sans);
   background-color: #EBE7E0;
   color: var(--color-editorial-text);
+  scroll-behavior: smooth;
 }
 
 #root {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
   max-width: 1920px;
   margin: 0 auto;
   position: relative;
   background-color: var(--color-editorial-bg);
   box-shadow: 0 0 40px rgba(0,0,0,0.05);
-  /* Hide scrollbar for a cleaner look */
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 
 #root::-webkit-scrollbar {
@@ -37,10 +29,8 @@ html, body {
 }
 
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100svh;
+  width: 100%;
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid rgba(0,0,0,0.1);

@@ -46,9 +46,8 @@ export default function HeroSection() {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-[clamp(40px,5vw,100px)] left-[clamp(40px,5vw,100px)] flex flex-col items-center text-[#1A1A1A] opacity-50 hidden md:flex"
         >
-          <span className="text-[clamp(10px,1vw,16px)] uppercase tracking-wider mb-2 font-medium">{t('scrollDown')}</span>
           <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-            <ChevronDown className="w-[clamp(20px,2vw,40px)] h-[clamp(20px,2vw,40px)]" />
+            <ChevronDown className="w-[clamp(24px,2.5vw,48px)] h-[clamp(24px,2.5vw,48px)]" />
           </motion.div>
         </motion.div>
       </div>

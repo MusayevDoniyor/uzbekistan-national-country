@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { NationalityData } from "../data";
 import { useTranslation } from "react-i18next";
+import { Share2 } from "lucide-react";
 
 interface Props {
   data: NationalityData;
@@ -10,6 +11,24 @@ interface Props {
 export default function NationalitySection({ data, index }: Props) {
   const Icon = data.icon;
   const { t } = useTranslation();
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}${window.location.pathname}#nationality-${data.id}`;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: translatedTitle,
+          text: translatedDialogue,
+          url: url
+        });
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert(t('linkCopied', 'Link copied to clipboard!'));
+    }
+  };
 
   const getVariants = () => {
     switch (data.animation) {
@@ -47,7 +66,7 @@ export default function NationalitySection({ data, index }: Props) {
   const translatedDetail = t(`${data.id}_detail`);
 
   return (
-    <section className="snap-section flex flex-col md:flex-row bg-[#F8F5F2] relative">
+    <section id={`nationality-${data.id}`} className="snap-section flex flex-col md:flex-row bg-[#F8F5F2] relative">
       <div className="hidden md:flex flex-col items-center justify-between py-5 border-r border-[#1A1A1A]/10 w-[clamp(80px,5vw,160px)] shrink-0">
          <div className="editorial-vertical-text text-[clamp(10px,0.8vw,16px)]">{t('faces')}</div>
       </div>
@@ -60,7 +79,20 @@ export default function NationalitySection({ data, index }: Props) {
           variants={getVariants()}
           className="w-full max-w-[clamp(800px,70vw,1600px)] mx-auto"
         >
-           <div className="editorial-badge mb-[clamp(16px,2vw,40px)] text-[clamp(11px,1vw,18px)] px-[clamp(12px,1vw,24px)] py-[clamp(4px,0.4vw,12px)] self-start inline-block">{String(index + 1).padStart(2, '0')} / 08</div>
+           <div className="flex items-center gap-[clamp(16px,2vw,32px)] mb-[clamp(16px,2vw,40px)]">
+             <div className="editorial-badge text-[clamp(11px,1vw,18px)] px-[clamp(12px,1vw,24px)] py-[clamp(4px,0.4vw,12px)] inline-block">
+               {String(index + 1).padStart(2, '0')} / 08
+             </div>
+             <button
+               onClick={handleShare}
+               className="p-[clamp(8px,1vw,16px)] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-[#F8F5F2] transition-colors rounded-full flex items-center justify-center group"
+               aria-label="Share"
+               title="Share"
+             >
+               <Share2 className="w-[clamp(16px,1.5vw,24px)] h-[clamp(16px,1.5vw,24px)]" />
+             </button>
+           </div>
+           
            <h2 className="text-[clamp(3.5rem,7vw,10rem)] leading-[0.85] font-bold text-[#1A1A1A] tracking-[-0.04em] mb-[clamp(16px,2vw,40px)] uppercase break-words w-full">
              {translatedTitle}
            </h2>
