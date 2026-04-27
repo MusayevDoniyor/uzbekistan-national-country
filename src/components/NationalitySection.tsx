@@ -98,8 +98,8 @@ export default function NationalitySection({ data, index }: Props) {
              <Icon className="text-[#1A1A1A]/40 w-[clamp(18px,1.5vw,32px)] h-[clamp(18px,1.5vw,32px)]" />
            </div>
            
-           <div className="font-bold text-[clamp(20px,2vw,40px)] mb-[clamp(4px,0.5vw,12px)]">{translatedTitle}</div>
-           <div className="text-[clamp(13px,1.2vw,22px)] opacity-80 mt-[clamp(8px,1vw,20px)] font-serif leading-relaxed italic border-l-2 pl-[clamp(8px,1vw,16px)] border-[#1A1A1A]/30">
+           <div className="font-bold text-[clamp(20px,2vw,40px)] mb-[clamp(4px,0.5vw,12px)] break-words">{translatedTitle}</div>
+           <div className="text-[clamp(13px,1.2vw,22px)] opacity-80 mt-[clamp(8px,1vw,20px)] font-serif leading-relaxed italic border-l-2 pl-[clamp(8px,1vw,16px)] border-[#1A1A1A]/30 w-full overflow-hidden">
                {translatedDetail.split(":")[0]} {t('mosaic')}
            </div>
         </div>

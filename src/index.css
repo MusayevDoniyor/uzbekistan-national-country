@@ -13,7 +13,7 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: var(--font-sans);
-  background-color: var(--color-editorial-bg);
+  background-color: #EBE7E0;
   color: var(--color-editorial-text);
 }
 
@@ -22,6 +22,11 @@ html, body {
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  max-width: 1920px;
+  margin: 0 auto;
+  position: relative;
+  background-color: var(--color-editorial-bg);
+  box-shadow: 0 0 40px rgba(0,0,0,0.05);
   /* Hide scrollbar for a cleaner look */
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
