@@ -4,11 +4,13 @@ import NationalitySection from './components/NationalitySection';
 import ParticipantsSection from './components/ParticipantsSection';
 import AiHelperSection from './components/AiHelperSection';
 import FinalSection from './components/FinalSection';
+import LanguageSwitcher from './components/LanguageSwitcher';
 import { nationalities } from './data';
 
 export default function App() {
   return (
     <main className="bg-[#F8F5F2]">
+      <LanguageSwitcher />
       <HeroSection />
       <IntroSection />
       {nationalities.map((item, index) => (
